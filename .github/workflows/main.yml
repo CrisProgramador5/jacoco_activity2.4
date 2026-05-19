@@ -31,7 +31,7 @@ jobs:
       - name: Run Snyk (non-blocking)
         run: snyk test --file=pom.xml || true
         env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       # 👇 Genera reporte válido para evidencia
       - name: Generate Snyk Report (safe)
