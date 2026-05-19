@@ -27,12 +27,11 @@ jobs:
       - name: Install Snyk
         run: npm install -g snyk
 
-      - name: Authenticate Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
-
       # 👇 Ejecuta Snyk pero no rompe pipeline
       - name: Run Snyk (non-blocking)
         run: snyk test --file=pom.xml || true
+        env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       # 👇 Genera reporte válido para evidencia
       - name: Generate Snyk Report (safe)
@@ -101,8 +100,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn verify sonar:sonar \
-          -Dsonar.projectKey=cbugueno-duoc_bdget-jacoco \
-          -Dsonar.organization=cbugueno-duoc \
+          -Dsonar.projectKey=CrisProgramador5_jacoco_activity2.4 \
+          -Dsonar.organization=CrisProgramador5 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
